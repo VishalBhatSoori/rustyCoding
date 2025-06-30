@@ -1,59 +1,38 @@
-fn main() {
+fn main(){
+    let arr:[&str;3]= ["Hello"," from ","Vishal"];
+    change_arr(arr);
+    println!("{:?}",arr);
+
+    // passing array be reference in stack memory
+    let mut arr2:[&str;3]=["Hello"," from ","Vishal the Boss"];
+    change_mut_arr(& mut arr2);
+    println!("{:?}",arr2);
+
+    //vectors 
+
+    //let mut v:Vec<u32>= Vec:: new();
+    let mut v = Vec::new();
+    v.push(1);
+    v.push(2);
+    v.push(3);
+    println!("{:?}",v);
+
+    let mut v1 = vec![1,2,3,4,5];
+    v1.pop();
+    println!("{:?}",v1);
+
+    //     NOte : vector follows ownership rules as its data resides in heap memory
+
+    let x = 5;
     
-    let a = 18;
-    let b = a;
-    println!("a = {}",a);
-    println!("b = {}",b);
-
-    let my_name:String = String ::from("Hello from Heap Memory");
-    {
-        let your_name = my_name;
-        //println!("my_name = {}",my_name);
-        println!("your_name= {}",your_name);
-    }
-    //println!("my_name = {}",my_name);
-
-    let s1:String = String :: from("Hello");
-    let s2:String = get_string(s1);
-    println!("{}",s2);
-
-    let s3:String = String :: from("Hello from Avoid Ownership using Tuple");
-    let (s4,len) = get_len(s3);
-    println!("The length of string ' {} ' is {}",s4,len);
-
-    let s5:String = String :: from ("Hello from the string clone");
-    let len = get_clone_len(s5.clone());
-    println!("The length of the string clone '{}' is {} , but this operation is expensive man",s5,len);
-
-    let s6:String = String :: from ("Hello from the string borrowed");
-    let len = get_length(&s6);
-    println!("The length of the borrowed reference of string '{}' is {}",s6,len);
-
-    let mut s7:String = String :: from ("Hello from mutable reference");
-    
-    let my_string:String= get_my_string();
-    println!("{}",my_string);
-
 }
 
-fn get_string(received_string:String)->String{
-    return received_string;
+fn change_arr(mut arr1:[&str;3]){
+    arr1[0]="Hiii";
+    println!("{:?}",arr1);
 }
 
-fn get_len(str:String)->(String,usize){
-    let len:usize = str.len();
-    return (str,len);
-}
-
-fn get_clone_len(str:String)->usize{
-    return str.len();
-}
-
-fn get_length(str:&String)->usize{
-    return str.len();
-}
-
-fn get_my_string()->String{
-    let s = String::from("hiiiiiii");
-    return s;
+fn change_mut_arr(arr3:&mut[&str;3]){
+    arr3[0]="Hiii";
+    println!("{:?}",arr3);
 }
