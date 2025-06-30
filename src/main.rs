@@ -1,38 +1,39 @@
+use std::io::*;
+use rand::prelude::*;
 fn main(){
-    let arr:[&str;3]= ["Hello"," from ","Vishal"];
-    change_arr(arr);
-    println!("{:?}",arr);
+    let guess_list:[&str;4] = ["grapes","mango","apple","orange"];
 
-    // passing array be reference in stack memory
-    let mut arr2:[&str;3]=["Hello"," from ","Vishal the Boss"];
-    change_mut_arr(& mut arr2);
-    println!("{:?}",arr2);
+    let mut rng = rand::rng();
 
-    //vectors 
-
-    //let mut v:Vec<u32>= Vec:: new();
-    let mut v = Vec::new();
-    v.push(1);
-    v.push(2);
-    v.push(3);
-    println!("{:?}",v);
-
-    let mut v1 = vec![1,2,3,4,5];
-    v1.pop();
-    println!("{:?}",v1);
-
-    //     NOte : vector follows ownership rules as its data resides in heap memory
-
-    let x = 5;
-    
-}
-
-fn change_arr(mut arr1:[&str;3]){
-    arr1[0]="Hiii";
-    println!("{:?}",arr1);
-}
-
-fn change_mut_arr(arr3:&mut[&str;3]){
-    arr3[0]="Hiii";
-    println!("{:?}",arr3);
+    let i = rng.random_range(0..guess_list.len());
+    let random_fruit:&str= guess_list[i];
+    //this is just for testing , then this below line must be commented 
+    //println!("Random fruit is {}",random_fruit);
+    //take input from user and do error handling using match
+    println!("Enter the fruit name here");
+    let mut input = String :: new();
+    loop {
+        input.clear();
+        match stdin().read_line(&mut input){
+            Ok(_)=>{
+                let fruit_selected = input.trim().to_lowercase();
+                if !guess_list.contains(&fruit_selected.as_str()){
+                    println!("Fruit entered was not found");
+                    continue;
+                }
+                else {
+                    if fruit_selected == random_fruit{
+                        println!("You guessed it , you can become a professional gambler");
+                        break;
+                    }
+                    else {
+                        println!("You guessed wrong, better luck next time");
+                    }
+                }
+            }
+            Err(error)=>{
+                println!("Some error while taking input: {}",error);
+            }
+        }
+    }
 }
